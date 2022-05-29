@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import {useSelector , useDispatch } from 'react-redux';
 
 function App() {
+  const counterState = useSelector(state => state.value)
+  const toggleState = useSelector(state => state.showCounter)
+  const dispatch = useDispatch();
+
+  
+  const increase = ()=>{
+    const action = {
+      type : 'increase',
+      payload : 1,
+    }
+    dispatch(action);
+  }
+  const decrease = ()=>{
+    const action = {
+      type : 'decrease',
+      payload : 1,
+    }
+    dispatch(action);
+
+  }
+  function toggle() {
+    const action = {
+      type : 'toggle'
+    }
+    dispatch(action)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Hello Redux Basic</h1>
+      {
+         toggleState &&
+          <>
+            <div className='counter'>Counter: {counterState}</div>
+            <div>
+              <button className='btn' onClick = {increase} >increase +</button>
+              <button className='btn' onClick = {decrease} >decrease -</button>
+            </div>
+          </>
+        
+      }
+      <div>   
+        <button className='btn' onClick = {toggle}>Hide/Show Counter Number</button>
+      </div>
     </div>
   );
 }
-
 export default App;
